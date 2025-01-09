@@ -1,6 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
-
 import SignInPage from '../../pages/signIn'
 import Logo from '../Elements/Logo/index'
 import { useContext } from 'react'
@@ -9,15 +6,21 @@ import FormSignIn from '../Fragments/FormSignIn'
 import { Link } from 'react-router-dom'
 import SimpleBackdrop from '../Elements/Backdrop'
 import CustomizedSnackbars from '../Elements/SnackBar'
-import { motion } from "framer-motion";
-
+import * as motion from "motion/react-client"
+import { Icon } from '../Elements/Icon'
+import { DarkModeContext } from '../../context/darkModeContext'
 
 const AuthLayout = (props) => {
   const {children,type} = props;
   const {msg, setMsg, open, setOpen, isLoading, setIsLoading} = useContext(NotifContext);
+  const { darkMode, setDarkMode } = useContext(DarkModeContext);
+
+  const handleDarkModeToggle = () => {
+    setDarkMode(!darkMode);
+  };
 
   return (
-    <div className="flex justify-center min-h-screen items-center bg-special-mainBg">
+    <div className={`flex justify-center min-h-screen items-center ${darkMode ? 'bg-defaultBlack' : 'bg-special-mainBg'} ${darkMode ? 'text-white' : 'text-gray-900'}`}>
       {isLoading && (
         <SimpleBackdrop isLoading={isLoading} setIsLoading={setIsLoading} />
       )}
@@ -59,7 +62,7 @@ const AuthLayout = (props) => {
       {/* teks start */}
       <div className="my-9 px-7 flex justify-center text-xs text-gray-03 items-center flex-col static">
         <div className="border border-gray-05 w-full"></div>
-        <div className="px-2 bg-special-mainBg absolute"> or sign in with</div>
+        <div className={`px-2 ${darkMode ? 'bg-defaultBlack' : 'bg-special-mainBg'} absolute`}> or sign in with</div>
       </div>
       {/* teks end */}
       {/* sign in with google start */}
@@ -75,8 +78,9 @@ const AuthLayout = (props) => {
           
         >
           <svg
-            className="h-6 w-6 mr-2"
+            class="h-6 w-6 mr-2"
             xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
             width="800px"
             height="800px"
             viewBox="-0.5 0 48 48"
@@ -88,9 +92,9 @@ const AuthLayout = (props) => {
             <g
               id="Icons"
               stroke="none"
-              strokeWidth="1"
+              stroke-width="1"
               fill="none"
-              fillRule="evenodd"
+              fill-rule="evenodd"
             >
               {" "}
               <g id="Color-" transform="translate(-401.000000, -860.000000)">
@@ -146,6 +150,11 @@ const AuthLayout = (props) => {
   ) : (
     <Link to = "/register" className="text-primary text-sm font-bold">Create an account</Link>
   )}
+</div>
+<div className="flex justify-center mt-4 ">
+  <span className="cursor-pointer" onClick={handleDarkModeToggle}>
+    <Icon.DarkMode />
+  </span>
 </div>
 {/* link end */}
     </motion.div>

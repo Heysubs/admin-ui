@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 import SignInPage from "./pages/signIn";
 import SignUpPage from "./pages/signUp";
@@ -6,27 +5,26 @@ import ErrorRoute from "./pages/errorRoute";
 import ForgotPassword from "./pages/forgotPassword";
 import DashboardPage from "./pages/dashboard";
 import BalancePage from "./pages/balance";
-import ExpensePage from "./pages/expense";
 import GoalPage from "./pages/goal";
+import ExpensePage from "./pages/expense";
 import { useContext } from "react";
 import { AuthContext } from "./context/authContext";
 
 const App = () => {
-  const {isLoggedIn} = useContext(AuthContext);
+  const { isLoggedIn } = useContext(AuthContext);
 
-  const RequiredAuth = ({children}) => {
-    return isLoggedIn ? children : <Navigate to="/login"/>;
+  const RequireAuth = ({ children }) => {
+    return isLoggedIn ? children : <Navigate to="/login" />;
   };
-
 
   const myRouter = createBrowserRouter([
     {
       path: "/",
-      element: <RequiredAuth> <DashboardPage/> </RequiredAuth>,
+      element: <RequireAuth><DashboardPage/></RequireAuth>,
       errorElement: <ErrorRoute/>,
     },
     {
-      path: "/eror",
+      path: "/error",
       element: <ErrorRoute/>,
     },
     {
@@ -43,15 +41,15 @@ const App = () => {
     },
     {
       path: "/balance",
-      element: <RequiredAuth> <BalancePage/> </RequiredAuth>,
+      element: <RequireAuth><BalancePage/></RequireAuth>,
     },
     {
       path: "/expense",
-      element: <RequiredAuth> <ExpensePage/> </RequiredAuth> ,
+      element: <RequireAuth><ExpensePage/></RequireAuth>,
     },
     {
       path: "/goal",
-      element: <RequiredAuth> <GoalPage/> </RequiredAuth> ,
+      element: <RequireAuth><GoalPage/></RequireAuth>,
     }
 
   ]);

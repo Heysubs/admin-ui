@@ -24,7 +24,7 @@ const FormSignUp = () => {
         <LabeledInput
           label="Password"
           type="password"
-          placeholder="*"
+          placeholder="*************"
           name="password"
         />
       </div>

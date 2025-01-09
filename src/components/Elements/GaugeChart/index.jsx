@@ -1,17 +1,15 @@
 import * as React from "react";
-
 import {
     GaugeContainer,
     GaugeValueArc,
     GaugeReferenceArc,
     useGaugeState,
   } from "@mui/x-charts/Gauge";
+  import { useContext } from "react";
+  import { ThemeContext } from "../../../context/themeContext";
 
-  import { useContext} from "react";
-import { ThemeContext } from "../../../context/themeContext";
-  
   function GaugePointer(props) {
-    const{color} = props;
+    const { color } = props;
     const { valueAngle, outerRadius, cx, cy } = useGaugeState();
   
     if (valueAngle === null) {
@@ -35,7 +33,7 @@ import { ThemeContext } from "../../../context/themeContext";
   }
   
   export default function CompositionExample(props) {
-    const{theme} = useContext(ThemeContext);
+    const { theme } =  useContext(ThemeContext);
     const { desc } = props;
 
     return (
